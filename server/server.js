@@ -1,19 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const FormData = require('./model/Salary'); 
 
 const app = express();
 
-//import routes
-const routes = require('./routes/salaryRoutes');
-const bodyParser = require('body-parser');
-
-//app middleware
-app.use(bodyParser.json())
+// App middleware
+app.use(bodyParser.json());
 app.use(cors());
-
-//route middleware
-app.use(routes)
 
 const PORT = 8000;
 
@@ -33,8 +28,37 @@ mongoose.connect(DB_URL, {
 
 
 
-app.listen(PORT, () => {
-    console.log(`App is running on ${PORT}`);
+
+// Save or update form data
+app.post('/api/save-data', (req, res) => {
+    const formData = req.body;
+    FormData.findOneAndUpdate(
+        { userId: formData.userId },
+        formData,
+        { new: true, upsert: true, setDefaultsOnInsert: true }
+    )
+    .then(() => {
+        res.status(201).send('Form data saved successfully');
+    })
+    .catch(err => {
+        res.status(500).send('Error saving form data: ' + err);
+    });
 });
 
 
+// Retrieve form data
+app.get('/api/get-data', (req, res) => {
+    FormData.find()
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch(err => {
+        res.status(500).send('Error retrieving form data: ' + err);
+      });
+});
+
+
+
+app.listen(PORT, () => {
+    console.log(`App is running on ${PORT}`);
+});

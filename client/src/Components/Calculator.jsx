@@ -66,59 +66,61 @@ export default function Calculator() {
         dispatch(resetForm());
     };
 
-    // Function to calculate the sum of earnings
     const calculateTotalEarnings = () => {
-        return basicSalary + earnings.reduce((total, earning) => total + earning.amount, 0);
+        return Math.floor(basicSalary + earnings.reduce((total, earning) => total + earning.amount, 0));
     };
-
-    // Function to calculate the sum of EPF/ETF allowed earnings
+    
     const calculateTotalEarningsForEPF = () => {
-        return basicSalary + earnings.filter(earning => earning.epfEtf).reduce((total, earning) => total + earning.amount, 0);
+        return Math.floor(basicSalary + earnings.filter(earning => earning.epfEtf).reduce((total, earning) => total + earning.amount, 0));
     };
-
-    // Function to calculate the sum of deductions
+    
     const calculateGrossDeduction = () => {
-        return deductions.reduce((total, deduction) => total + deduction.amount, 0);
+        return Math.floor(deductions.reduce((total, deduction) => total + deduction.amount, 0));
     };
-
-    // Function to calculate APIT
+    
     const calculateAPIT = (grossEarnings) => {
         let tax = 0;
     
         if (grossEarnings <= 100000) {
             tax = 0;
         } else if (grossEarnings <= 141667) {
-            tax = (grossEarnings) * 0.06 - 6000;
+            tax = Math.floor((grossEarnings) * 0.06 - 6000);
         } else if (grossEarnings <= 183333) {
-            tax = (grossEarnings) * 0.12 - 14500;
+            tax = Math.floor((grossEarnings) * 0.12 - 14500);
         } else if (grossEarnings <= 225000) {
-            tax = (grossEarnings) * 0.18 - 25500;
+            tax = Math.floor((grossEarnings) * 0.18 - 25500);
         } else if (grossEarnings <= 266667) {
-            tax = (grossEarnings) * 0.24 - 39000;
+            tax = Math.floor((grossEarnings) * 0.24 - 39000);
         } else if (grossEarnings <= 308333) {
-            tax = (grossEarnings) * 0.30 - 55000;
+            tax = Math.floor((grossEarnings) * 0.30 - 55000);
         } else {
-            tax = (grossEarnings) * 0.36 - 73500;
+            tax = Math.floor((grossEarnings) * 0.36 - 73500);
         }
     
         return tax;
     };
     
 
+
+    //seperate by 3 digits
+    const formatNumberWithCommas = (number) => {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
     const totalEarnings = calculateTotalEarnings();
     const totalEarningsForEPF = calculateTotalEarningsForEPF();
     const grossDeduction = calculateGrossDeduction();
     const grossEarnings = totalEarnings - grossDeduction;
     const grossSalaryForEPF = totalEarningsForEPF - grossDeduction;
-    const employeeEPF = grossSalaryForEPF * 0.08;
-    const employerEPF = grossSalaryForEPF * 0.12;
-    const employerETF = grossSalaryForEPF * 0.03;
+    const employeeEPF = Math.floor(grossSalaryForEPF * 0.08);
+    const employerEPF = Math.floor(grossSalaryForEPF * 0.12);
+    const employerETF = Math.floor(grossSalaryForEPF * 0.03);
     const apit = calculateAPIT(grossEarnings);
-    const netSalary = grossEarnings - employeeEPF - apit;
+    const netSalary = Math.floor(grossEarnings - employeeEPF - apit);
     const ctc = grossEarnings + employerEPF + employerETF;
-
+    
     return (
-        <div className='container Container-page'>
+        <div className='container'>
             <div className='Full-Page'>
                 <div className='Calculator-side'>
                     <div className='First-Line'>
@@ -128,12 +130,13 @@ export default function Calculator() {
                             <span className='add-new'> Reset</span>
                         </button>
                     </div>
+                    <br></br>
 
                     <div className='basic'>
                         <h5 className='semi-titles'>Basic Salary</h5>
                         <input
-                            className='input'
-                            placeholder='Enter your Basic Salary'
+                            className='basic-salary-input'
+                            placeholder='Amount'
                             type='number'
                             id='basicSalary'
                             autoComplete='off'
@@ -142,14 +145,15 @@ export default function Calculator() {
                             required
                         />
                     </div>
+                    <br></br>
 
                     <div className='Earning'>
-                        <h5 className='semi-titles'>Earning</h5>
+                        <h5 className='semi-titles'>Earnings</h5>
                         <h6 className='title-description'>Allowance, Fixed Allowance, Bonus and etc.</h6>
                         {earnings.map((earning) => (
                             <div key={earning.id} className='one-row'>
                                 <input
-                                    className='input'
+                                    className='pay-details-input'
                                     placeholder='Pay Details (Title)'
                                     type='text'
                                     autoComplete='off'
@@ -158,7 +162,7 @@ export default function Calculator() {
                                     required
                                 />
                                 <input
-                                    className='input'
+                                    className='amount-input'
                                     placeholder='Amount'
                                     type='number'
                                     autoComplete='off'
@@ -166,18 +170,25 @@ export default function Calculator() {
                                     value={earning.amount}
                                     required
                                 />
+
                                 <button className='remove' onClick={() => handleRemoveEarning(earning.id)}>
-                                    <img src={Remove} alt='remove' />
+                                    <img src={Remove} alt='remove' className='remove-img' />
                                 </button>
+
+                                <div className='checkbox-and-details'>
                                 <input
                                     type='checkbox'
                                     className='check-box'
                                     checked={earning.epfEtf}
                                     onChange={() => handleToggleEPFETF(earning.id)}
-                                />
-                                <h5 className='epf-etf'>EPF/ETF</h5>
+                                    />
+                                    <h5 className='epf-etf'>EPF/ETF</h5>
+                                </div>
+                                
+                               
                             </div>
                         ))}
+
                         <button className='add-new' onClick={handleAddEarning}>+ Add New Allowance</button>
                     </div>
 
@@ -189,7 +200,7 @@ export default function Calculator() {
                         {deductions.map((deduction) => (
                             <div key={deduction.id} className='one-row'>
                                 <input
-                                    className='input'
+                                    className='pay-details-input'
                                     placeholder='Pay Details (Title)'
                                     type='text'
                                     autoComplete='off'
@@ -198,7 +209,7 @@ export default function Calculator() {
                                     required
                                 />
                                 <input
-                                    className='input'
+                                    className='amount-input'
                                     placeholder='Amount'
                                     type='number'
                                     autoComplete='off'
@@ -207,64 +218,77 @@ export default function Calculator() {
                                     required
                                 />
                                 <button className='remove' onClick={() => handleRemoveDeduction(deduction.id)}>
-                                    <img src={Remove} alt='remove' />
+                                    <img src={Remove} alt='remove' className='remove-img' />
                                 </button>
                             </div>
                         ))}
+
                         <button className='add-new' onClick={handleAddDeduction}>+ Add New Deduction</button>
                     </div>
                 </div>
+
+                
 
                 <div className='Salary-side '>
                     <div className='Your-Salary'>
                         <h4 className='main-points'>Your Salary</h4> 
                     </div>
+                    <br></br>
 
                     <div className='Items-Amount'>
-                        <h6>Items</h6>
-                        <h6>Amount</h6>
-                    </div>
-
-                    <div>
-                        <div className='Salaries-Deductions'>
-                            <h5>Basic Salary</h5><h5>{basicSalary}</h5>
-                        </div>   
-                        <div className='Salaries-Deductions'>
-                            <h5>Total Earnings</h5><h5>{totalEarnings}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>Total Earnings for EPF</h5><h5>{totalEarningsForEPF}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>Gross Deduction</h5><h5>{grossDeduction}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>Gross Earnings</h5><h5>{grossEarnings}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>Gross Salary for EPF</h5><h5>{grossSalaryForEPF}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>Employee EPF (8%)</h5><h5>{employeeEPF}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>Employer EPF (12%)</h5><h5>{employerEPF}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>Employer ETF (3%)</h5><h5>{employerETF}</h5>
-                        </div>  
-                        <div className='Salaries-Deductions'>
-                            <h5>APIT</h5><h5>{apit}</h5>
-                        </div>  
-                        <div className='Net-Salary'>
-                            <h5>Net Salary</h5><h5>{netSalary}</h5>
-                        </div> 
-                        <div className='Salaries-Deductions'>
-                            <h5>Cost To Company (CTC)</h5><h5>{ctc}</h5>
-                        </div> 
-                    </div>
+                    <h6 className='item-amount-both'>Items</h6>
+                    <h6 className='item-amount-both'>Amount</h6>
                 </div>
+
+                <div className='salary-all'>
+                        <div className='Salaries-Deductions'>
+                        <h5 className='items'>Basic Salary</h5>
+                        <h5 className='items'>{basicSalary ? formatNumberWithCommas(basicSalary.toFixed(2)) : '0.00'}</h5>
+
+                        </div> 
+                        <div className='Salaries-Deductions'>
+                            <h5 className='items'>Gross Earning</h5><h5 className='items'>{formatNumberWithCommas(grossEarnings.toFixed(2))}</h5>
+                        </div>
+                        <div className='Salaries-Deductions'>
+                            <h5 className='items'>Gross Deduction</h5><h5 className='items'>-{formatNumberWithCommas(grossDeduction.toFixed(2))}</h5>
+                        </div>
+                        <div className='Salaries-Deductions'>
+                            <h5 className='items'>Employee EPF (8%)</h5><h5 className='items'>-{formatNumberWithCommas(employeeEPF.toFixed(2))}</h5>
+                        </div>
+                        <div className='Salaries-Deductions'>
+                            <h5 className='items'>APIT</h5><h5 className='items'>-{apit}.00</h5>
+                        </div>  
+                        <br></br>
+
+                        <div className='Net-Salary'>
+                            <h5 className='net-salary-details'>Net Salary (Take Home)</h5><h5 className='net-salary-details'>{formatNumberWithCommas(netSalary.toFixed(2))}</h5>
+                    </div> 
+
+                </div>
+
+                 <br></br>
+
+                        <div className='Emplyer-Contribution'>
+                    Contribution from the Employer
+                </div>
+
+                <div className='salary-deduction-all'>
+                    <div className='Salaries-Deductions'>
+                        <h5 className='items'>Employer EPF (12%)</h5><h5 className='items'>{formatNumberWithCommas(employerEPF.toFixed(2))}</h5>
+                    </div>   
+                        <div className='Salaries-Deductions'>
+                        <h5 className='items'>Employer ETF (3%)</h5><h5 className='items'>{formatNumberWithCommas(employerETF.toFixed(2))}</h5>
+                    </div>  
+                       <br></br>
+                        <div className='Salaries-Deductions'>
+                            <h5 className='items'>CTC (Cost to Company)</h5><h5 className='items'>{formatNumberWithCommas(ctc.toFixed(2))}</h5>
+                        </div>
+
+                     </div>
+                    </div>
+                    </div>
             </div>
-        </div>
+       
     );
 }
+ 

@@ -1,11 +1,56 @@
+import {
+    FETCH_DATA_REQUEST,
+    FETCH_DATA_SUCCESS,
+    FETCH_DATA_FAILURE,
+    SAVE_DATA_REQUEST,
+    SAVE_DATA_SUCCESS,
+    SAVE_DATA_FAILURE,
+  
+} from './action';
+
+
 const initialState = {
-    basicSalary: 0,
+    basicSalary: '',
     earnings: [],
-    deductions: []
+    deductions: [],
+    loading: false,
+    error: null,
+    saveSuccess: false
 };
 
 function salaryReducer(state = initialState, action) {
     switch (action.type) {
+
+
+        case FETCH_DATA_REQUEST:
+            case SAVE_DATA_REQUEST:
+                return {
+                    ...state,
+                    loading: true,
+                    error: null
+                };
+            case FETCH_DATA_SUCCESS:
+                return {
+                    ...state,
+                    basicSalary: action.payload.basicSalary,
+                    earnings: action.payload.earnings,
+                    deductions: action.payload.deductions,
+                    loading: false
+                };
+            case FETCH_DATA_FAILURE:
+            case SAVE_DATA_FAILURE:
+                return {
+                    ...state,
+                    loading: false,
+                    error: action.payload
+                };
+            case SAVE_DATA_SUCCESS:
+                return {
+                    ...state,
+                    loading: false,
+                    saveSuccess: true
+                };
+
         case 'UPDATE_BASIC_SALARY':
             return { ...state, basicSalary: action.payload };
         case 'UPDATE_EARNING_TITLE':
@@ -25,7 +70,7 @@ function salaryReducer(state = initialState, action) {
         case 'ADD_EARNING':
             return {
                 ...state,
-                earnings: [...state.earnings, { id: Date.now(), title: '', amount: 0, epfEtf: false }]
+                earnings: [...state.earnings, { id: Date.now(), title: '', amount: '', epfEtf: false }]
             };
         case 'REMOVE_EARNING':
             return {
@@ -56,7 +101,7 @@ function salaryReducer(state = initialState, action) {
         case 'ADD_DEDUCTION':
             return {
                 ...state,
-                deductions: [...state.deductions, { id: Date.now(), title: '', amount: 0, epfEtf: false }]
+                deductions: [...state.deductions, { id: Date.now(), title: '', amount: '', epfEtf: false }]
             };
         case 'REMOVE_DEDUCTION':
             return {
