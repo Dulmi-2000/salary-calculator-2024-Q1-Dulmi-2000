@@ -1,0 +1,168 @@
+@media(min-width:1024px){
+    .Full-Page{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        height: 100%;
+    
+    
+    }
+    .Calculator-side{
+        width: 55%;
+        height: max-content;
+        border-color: black;
+        padding: 30px;
+        border-width: 1px;
+        border-style: groove;
+        background-color: azure;
+    }
+    .Salary-side{
+        width: 43%;
+        height: max-content;
+        border-color: black;
+        border-width: 1px;
+        padding: 30px;
+        border-style: groove;
+        background-color: azure;
+    }
+    
+}
+
+@media(max-width:1023px){
+    .Full-Page{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .Calculator-side{
+        width: 100%;
+        height: max-content;
+        border-color: black;
+        padding: 30px;
+        border-width: 1px;
+        border-style: groove;
+        background-color: azure;
+    }
+    .Salary-side{
+        width: 100%;
+        height: max-content;
+        border-color: black;
+        border-width: 1px;
+        padding: 30px;
+        border-style: groove;
+        background-color: azure;
+    }
+}
+
+
+
+
+
+
+.First-Line{
+    display: flex;
+    justify-content: space-between;
+}
+.reset-button{
+    float: right;
+}
+
+.Items-Amount{
+    display: flex;
+    justify-content: space-between;
+}
+
+.Salaries-Deductions{
+    display: flex;
+    justify-content: space-between;
+}
+
+.Net-Salary{
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-points{
+    font-size: 20;
+    font-family: inter;
+    font-weight: bold;
+}
+
+.reset-img{
+    width: 24px;
+    height: 24px;
+}
+
+.semi-titles{
+    font-size: 16;
+    font-family: inter;
+    font-weight: 600;
+}
+
+.title-description{
+    font-size: 12;
+    font-family: inter;
+    font-weight: 400;
+}
+
+.input{
+    font-size: 16;
+    font-family: inter;
+    font-weight: 600;
+    width: 212PX;
+    height: 48PX;
+    border-radius: 4px;
+}
+
+.add-new{
+    font-size: 14px;
+    font-family: inter;
+    font-weight: 500;
+    color: #0052EA;
+    
+}
+
+.reset-button{
+    font-size: 14;
+    font-family: inter;
+    font-weight: 500;
+    color: #0052EA;
+}
+
+.check-box{
+    width: 18px;
+    height: 18px;
+    background-color: #FFFFFF;
+}
+:checked .check-box{
+    width: 18px;
+    height: 18px;
+    background-color: #0052EA;
+}
+
+.remove{
+    width: 32px;
+    height: 32px;
+    box-shadow: none;
+    background-color: red;
+}
+
+.epf-etf{
+    font-size: 16;
+    font-family: inter;
+    font-weight: 400;
+}
+
+.one-row{
+    display: flex;
+    gap: 8px;
+   
+    align-items: center;
+}
+
+.Earning{
+  
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
