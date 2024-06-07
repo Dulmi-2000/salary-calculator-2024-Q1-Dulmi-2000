@@ -5,7 +5,7 @@ import {
     SAVE_DATA_REQUEST,
     SAVE_DATA_SUCCESS,
     SAVE_DATA_FAILURE,
-  
+    UPDATE_FORM_DATA
 } from './action';
 
 
@@ -21,35 +21,14 @@ const initialState = {
 function salaryReducer(state = initialState, action) {
     switch (action.type) {
 
-
-        case FETCH_DATA_REQUEST:
-            case SAVE_DATA_REQUEST:
-                return {
-                    ...state,
-                    loading: true,
-                    error: null
-                };
-            case FETCH_DATA_SUCCESS:
-                return {
-                    ...state,
-                    basicSalary: action.payload.basicSalary,
-                    earnings: action.payload.earnings,
-                    deductions: action.payload.deductions,
-                    loading: false
-                };
-            case FETCH_DATA_FAILURE:
-            case SAVE_DATA_FAILURE:
-                return {
-                    ...state,
-                    loading: false,
-                    error: action.payload
-                };
-            case SAVE_DATA_SUCCESS:
-                return {
-                    ...state,
-                    loading: false,
-                    saveSuccess: true
-                };
+        //update form data according to changes
+        case UPDATE_FORM_DATA:
+            return {
+                ...state,
+                ...action.payload
+            };
+        
+        
 
         case 'UPDATE_BASIC_SALARY':
             return { ...state, basicSalary: action.payload };

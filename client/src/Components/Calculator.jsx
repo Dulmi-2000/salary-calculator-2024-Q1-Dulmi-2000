@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Calculator.css';
 import Remove from '../Assets/remove.png';
@@ -15,13 +15,35 @@ import {
     updateDeductionAmount,
     addDeduction,
     removeDeduction,
-    resetForm
+    resetForm,
+    updateFormData
 } from '../redux/action';
 
 export default function Calculator() {
     const dispatch = useDispatch();
     const { basicSalary, earnings, deductions } = useSelector(state => state);
+    
+    
+    
+    
+    const formData = useSelector((state) => state);
+    useEffect(() => {
+        // Load data from localStorage when the component mounts
+        const savedFormData = JSON.parse(localStorage.getItem('formData'));
+        if (savedFormData) {
+          dispatch(updateFormData(savedFormData));
+        }
+      }, [dispatch]);
+    
+      useEffect(() => {
+        // Save data to localStorage whenever formData changes
+        localStorage.setItem('formData', JSON.stringify(formData));
+      }, [formData]);
+    
 
+
+
+    
     const handleBasicSalaryChange = (e) => {
         dispatch(updateBasicSalary(Number(e.target.value)));
     };
@@ -119,6 +141,8 @@ export default function Calculator() {
     const netSalary = Math.floor(grossEarnings - employeeEPF - apit);
     const ctc = grossEarnings + employerEPF + employerETF;
     
+
+    
     return (
         <div className='container'>
             <div className='Full-Page'>
@@ -141,7 +165,7 @@ export default function Calculator() {
                             id='basicSalary'
                             autoComplete='off'
                             onChange={handleBasicSalaryChange}
-                            value={basicSalary}
+                            value={formData.basicSalary}
                             required
                         />
                     </div>

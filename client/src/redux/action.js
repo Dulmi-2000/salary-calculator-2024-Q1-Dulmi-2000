@@ -11,45 +11,20 @@ export const UPDATE_DEDUCTION_AMOUNT = 'UPDATE_DEDUCTION_AMOUNT';
 export const ADD_DEDUCTION = 'ADD_DEDUCTION';
 export const REMOVE_DEDUCTION = 'REMOVE_DEDUCTION';
 export const RESET_FORM = 'RESET_FORM';
+export const UPDATE_FORM_DATA = 'UPDATE_FORM_DATA';
 
 
 
-// actions.js
-
-export const SAVE_DATA_REQUEST = 'SAVE_DATA_REQUEST';
-export const SAVE_DATA_SUCCESS = 'SAVE_DATA_SUCCESS';
-export const SAVE_DATA_FAILURE = 'SAVE_DATA_FAILURE';
-export const FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST';
-export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
-export const FETCH_DATA_FAILURE = 'FETCH_DATA_FAILURE';
-
-export const saveData = (userId, formData) => {
-    return (dispatch) => {
-        dispatch({ type: SAVE_DATA_REQUEST });
-        axios.post(`http://localhost:8000/api/save-data/${userId}`, formData)
-            .then(response => {
-                dispatch({ type: SAVE_DATA_SUCCESS, payload: response.data });
-            })
-            .catch(error => {
-                dispatch({ type: SAVE_DATA_FAILURE, payload: error.message });
-            });
-    };
-};
-
-export const fetchData = (userId) => {
-    return (dispatch) => {
-        dispatch({ type: FETCH_DATA_REQUEST });
-        axios.get(`http://localhost:8000/api/get-data/${userId}`)
-            .then(response => {
-                dispatch({ type: FETCH_DATA_SUCCESS, payload: response.data });
-            })
-            .catch(error => {
-                dispatch({ type: FETCH_DATA_FAILURE, payload: error.message });
-            });
-    };
-};
 
 // Action Creators
+
+
+export const updateFormData = (data) => ({
+    type: UPDATE_FORM_DATA,
+    payload: data
+});
+
+
 export const updateBasicSalary = (amount) => ({
     type: 'UPDATE_BASIC_SALARY',
     payload: amount
