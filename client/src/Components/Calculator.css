@@ -140,7 +140,7 @@
 .pay-details-input{
     font-size: 16px;
     font-family: inter;
-    font-weight: 600;
+    font-weight: 400;
     width: 212PX;
     height: 48PX;
     border-radius: 4px;
@@ -154,7 +154,7 @@
 .amount-input{
     font-size: 16px;
     font-family: inter;
-    font-weight: 600;
+    font-weight: 400;
     width: 136PX;
     height: 48PX;
     border-radius: 4px;
@@ -165,10 +165,14 @@
     border-style: solid;
     text-align: right;
 }
+
+.amount-input:active{
+    background-color: #E0E0E0;
+}
 .basic-salary-input{
     font-size: 16px;
     font-family: inter;
-    font-weight: 600;
+    font-weight: 400;
     width: 356PX;
     height: 48PX;
     border-radius: 4px;
@@ -208,9 +212,8 @@
     width: 18px;
     height: 18px;
     background-color: #E0E0E0;
-   margin-left: 20px;
-   
-   border-radius: 20px;
+    margin-left: 20px;
+    border-radius: 20px;
 }
 .check-box :checked{
     width: 18px;
@@ -265,12 +268,14 @@
     font-size: 14px;
     font-family: inter;
     font-weight: 500;
+    color: #757575;
 }
 
 .item-amount-both{
     font-size: 14px;
     font-family: inter;
     font-weight: 500;
+    color: #757575;
 }
 
 .salary-all{
