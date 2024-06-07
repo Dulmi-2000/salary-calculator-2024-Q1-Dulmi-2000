@@ -147,6 +147,7 @@ export default function Calculator() {
                 <div className='Calculator-side'>
                     <div className='First-Line'>
                         <h4 className='main-points'>Calculate Your Salary</h4>
+                       
                         <button className='reset-button' onClick={handleResetForm}>
                             <img src={Reset} className='reset-img' alt='reset' />
                             <span className='add-new'> Reset</span>
