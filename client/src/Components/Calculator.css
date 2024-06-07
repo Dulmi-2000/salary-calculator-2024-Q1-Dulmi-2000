@@ -14,17 +14,17 @@
     .Calculator-side{
         width: 55%;
         height: max-content;
-        border-color: black;
+        border-color: #E0E0E0;
         padding: 30px;
         border-width: 1px;
         border-style: solid;
-        background-color: #FFFFFF;
+        background-color: #FAFAFA;
         border-radius: 10px;
     }
     .Salary-side{
         width: 43%;
         height: max-content;
-        border-color: black;
+        border-color: #E0E0E0;
         border-width: 1px;
         padding: 30px;
         border-style: solid;
@@ -46,17 +46,17 @@
     .Calculator-side{
         width: 100%;
         height: max-content;
-        border-color: black;
+        border-color: #E0E0E0;
         padding: 30px;
         border-width: 1px;
         border-style: solid;
-        background-color: #FFFFFF;
+        background-color: #FAFAFA;
         border-radius: 10px;
     }
     .Salary-side{
         width: 100%;
         height: max-content;
-        border-color: black;
+        border-color: #E0E0E0;
         border-width: 1px;
         padding: 30px;
         border-style: solid;
@@ -74,9 +74,7 @@
     display: flex;
     justify-content: space-between;
 }
-.reset-button{
-    float: right;
-}
+
 
 .Items-Amount{
     display: flex;
@@ -157,13 +155,12 @@
     font-size: 16px;
     font-family: inter;
     font-weight: 600;
-    width: 212PX;
+    width: 136PX;
     height: 48PX;
     border-radius: 4px;
     background-color: #FFFFFF;
     padding-left: 10px;
     border-color: #E0E0E0;
-  
     border-width: 1px;
     border-style: solid;
     text-align: right;
@@ -172,7 +169,7 @@
     font-size: 16px;
     font-family: inter;
     font-weight: 600;
-    width: 212PX;
+    width: 356PX;
     height: 48PX;
     border-radius: 4px;
     background-color: #FFFFFF;
@@ -190,7 +187,7 @@
     font-family: inter;
     font-weight: 500;
     color: #0052EA;
-    background-color: #FFFFFF;
+    background-color: #FAFAFA;
     border-width: 0;
 }
 
@@ -199,7 +196,8 @@
     font-family: inter;
     font-weight: 500;
     color: #0052EA;
-    background-color: #FFFFFF;
+    float: right;
+    background-color: #FAFAFA;
     border-width: 0;
 }
 
@@ -209,7 +207,7 @@
 .check-box{
     width: 18px;
     height: 18px;
-    
+    background-color: #E0E0E0;
    margin-left: 20px;
    
    border-radius: 20px;
@@ -230,7 +228,7 @@
     width: 35px;
     height: 36px;
     border-width: 0;
-    background-color: #FFFFFF;
+    background-color: #FAFAFA;
 }
 .remove-img{
     width: 32px;
