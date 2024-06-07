@@ -1,21 +1,22 @@
-import express from 'express';
-import cors from 'cors';
-import { json } from 'body-parser';
+// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
+const express = require('express');
+// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
+const cors = require('cors');
+// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
+const bodyParser = require('body-parser');
 
 const app = express();
 
 // App middleware
-app.use(json());
+app.use(bodyParser.json());
 app.use(cors());
 
 const PORT = 8000;
 
-
-
-
 app.listen(PORT, () => {
     console.log(`App is running on ${PORT}`);
 });
+
 
 
 

@@ -24,8 +24,6 @@ export default function Calculator() {
     const { basicSalary, earnings, deductions } = useSelector(state => state);
     
     
-    
-    
     const formData = useSelector((state) => state);
     useEffect(() => {
         // Load data from localStorage when the component mounts
