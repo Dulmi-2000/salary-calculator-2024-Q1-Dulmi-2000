@@ -1,11 +1,29 @@
+import {
+    UPDATE_FORM_DATA
+} from './action';
+
+
 const initialState = {
-    basicSalary: 0,
+    basicSalary: '',
     earnings: [],
-    deductions: []
+    deductions: [],
+    loading: false,
+    error: null,
+    saveSuccess: false
 };
 
 function salaryReducer(state = initialState, action) {
     switch (action.type) {
+
+        //update form data according to changes
+        case UPDATE_FORM_DATA:
+            return {
+                ...state,
+                ...action.payload
+            };
+        
+        
+
         case 'UPDATE_BASIC_SALARY':
             return { ...state, basicSalary: action.payload };
         case 'UPDATE_EARNING_TITLE':
@@ -25,7 +43,7 @@ function salaryReducer(state = initialState, action) {
         case 'ADD_EARNING':
             return {
                 ...state,
-                earnings: [...state.earnings, { id: Date.now(), title: '', amount: 0, epfEtf: false }]
+                earnings: [...state.earnings, { id: Date.now(), title: '', amount: '', epfEtf: false }]
             };
         case 'REMOVE_EARNING':
             return {
@@ -56,7 +74,7 @@ function salaryReducer(state = initialState, action) {
         case 'ADD_DEDUCTION':
             return {
                 ...state,
-                deductions: [...state.deductions, { id: Date.now(), title: '', amount: 0, epfEtf: false }]
+                deductions: [...state.deductions, { id: Date.now(), title: '', amount: '', epfEtf: false }]
             };
         case 'REMOVE_DEDUCTION':
             return {

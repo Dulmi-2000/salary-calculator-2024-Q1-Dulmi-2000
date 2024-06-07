@@ -1,35 +1,15 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import { json } from 'body-parser';
 
 const app = express();
 
-//import routes
-const routes = require('./routes/salaryRoutes');
-const bodyParser = require('body-parser');
-
-//app middleware
-app.use(bodyParser.json())
+// App middleware
+app.use(json());
 app.use(cors());
-
-//route middleware
-app.use(routes)
 
 const PORT = 8000;
 
-// Database connection
-const DB_URL = 'mongodb+srv://dulmi:dulmi123456@salarycalculatorapp.2qngz5c.mongodb.net/?retryWrites=true&w=majority&appName=salaryCalculatorApp';
-
-mongoose.connect(DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => {
-        console.log('DB connected');
-    })
-    .catch((err) => {
-        console.log('DB connection error:', err);
-    });
 
 
 
@@ -38,3 +18,48 @@ app.listen(PORT, () => {
 });
 
 
+
+// // Database connection
+// const DB_URL = 'mongodb+srv://dulmi:dulmi123456@salarycalculatorapp.2qngz5c.mongodb.net/?retryWrites=true&w=majority&appName=salaryCalculatorApp';
+
+// mongoose.connect(DB_URL, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// })
+//     .then(() => {
+//         console.log('DB connected');
+//     })
+//     .catch((err) => {
+//         console.log('DB connection error:', err);
+//     });
+
+
+
+
+// // Save or update form data
+// app.post('/api/save-data', (req, res) => {
+//     const formData = req.body;
+//     FormData.findOneAndUpdate(
+//         { userId: formData.userId },
+//         formData,
+//         { new: true, upsert: true, setDefaultsOnInsert: true }
+//     )
+//     .then(() => {
+//         res.status(201).send('Form data saved successfully');
+//     })
+//     .catch(err => {
+//         res.status(500).send('Error saving form data: ' + err);
+//     });
+// });
+
+
+// // Retrieve form data
+// app.get('/api/get-data', (req, res) => {
+//     FormData.find()
+//       .then((data) => {
+//         res.status(200).json(data);
+//       })
+//       .catch(err => {
+//         res.status(500).send('Error retrieving form data: ' + err);
+//       });
+// });

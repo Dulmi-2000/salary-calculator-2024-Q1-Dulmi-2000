@@ -1,15 +1,15 @@
-const Salary = require('../model/Salary');
+import Salary from '../model/Salary';
 
-exports.getSalaries = async (req, res) => {
+export async function getSalaries(req, res) {
   try {
     const salaries = await Salary.find();
     res.json({ success: true, existingPosts: salaries });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-};
+}
 
-exports.createSalary = async (req, res) => {
+export async function createSalary(req, res) {
   const { basicSalary, earnings, deductions } = req.body;
 
   try {
@@ -24,9 +24,9 @@ exports.createSalary = async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-};
+}
 
-exports.updateSalary = async (req, res) => {
+export async function updateSalary(req, res) {
   const { id } = req.params;
   const { basicSalary, earnings, deductions } = req.body;
 
@@ -40,9 +40,9 @@ exports.updateSalary = async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-};
+}
 
-exports.deleteEarning = async (req, res) => {
+export async function deleteEarning(req, res) {
   const { salaryId, earningId } = req.params;
 
   try {
@@ -53,9 +53,9 @@ exports.deleteEarning = async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-};
+}
 
-exports.deleteDeduction = async (req, res) => {
+export async function deleteDeduction(req, res) {
   const { salaryId, deductionId } = req.params;
 
   try {
@@ -66,13 +66,13 @@ exports.deleteDeduction = async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-};
+}
 
-exports.resetSalaries = async (req, res) => {
+export async function resetSalaries(req, res) {
   try {
     await Salary.deleteMany({});
     res.json({ success: true, message: 'Salaries reset successfully' });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-};
+}
