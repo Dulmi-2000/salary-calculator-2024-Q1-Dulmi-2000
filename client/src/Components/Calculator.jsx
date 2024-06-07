@@ -279,7 +279,7 @@ export default function Calculator() {
                             <h5 className='items'>Employee EPF (8%)</h5><h5 className='items'>-{formatNumberWithCommas(employeeEPF.toFixed(2))}</h5>
                         </div>
                         <div className='Salaries-Deductions'>
-                            <h5 className='items'>APIT</h5><h5 className='items'>-{apit}.00</h5>
+                            <h5 className='items'>APIT</h5><h5 className='items'>-{formatNumberWithCommas(apit.toFixed(2))}</h5>
                         </div>  
                         <br></br>
 
